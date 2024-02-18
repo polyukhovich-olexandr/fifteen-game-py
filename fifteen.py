@@ -79,3 +79,22 @@ def click(event):
 
 
 c.bind("<Button-1>", click)
+
+
+def get_empty_neighbor(index):
+    # Отримуємо індекс порожньої клітини у списку
+    empty_index = board.index(EMPTY_SQUARE)
+    # Дізнаємося відстань від порожньої клітини до клітини якою клікнули
+    abs_value = abs(empty_index - index)
+    # Якщо порожня клітина над або під клітиною на яку клікнули
+    # Повертаємо індекс порожньої клітини
+    if abs_value == BOARD_SIZE:
+        return empty_index
+    # Якщо порожня клітина ліворуч чи праворуч
+    elif abs_value == 1:
+        # Перевіряємо, щоб блоки були в одному ряді
+        max_index = max(index, empty_index)
+        if max_index % BOARD_SIZE != 0:
+            return empty_index
+    # Поруч із блоком не було порожнього поля
+    return index
