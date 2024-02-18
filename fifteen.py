@@ -98,3 +98,36 @@ def get_empty_neighbor(index):
             return empty_index
     # Поруч із блоком не було порожнього поля
     return index
+
+
+def is_solvable():
+    """Функція визначає, чи має головоломка рішення"""
+    num_inversions = get_inv_count()
+    if BOARD_SIZE % 2 != 0:
+        return num_inversions % 2 == 0
+    else:
+        empty_square_row = BOARD_SIZE - (board.index(EMPTY_SQUARE) // BOARD_SIZE)
+        if empty_square_row % 2 == 0:
+            return num_inversions % 2 != 0
+        else:
+            return num_inversions % 2 == 0
+
+
+def show_victory_plate():
+    # Малюємо чорний квадрат по центру поля
+    c.create_rectangle(
+        SQUARE_SIZE / 5,
+        SQUARE_SIZE * BOARD_SIZE / 2 - 10 * BOARD_SIZE,
+        BOARD_SIZE * SQUARE_SIZE - SQUARE_SIZE / 5,
+        SQUARE_SIZE * BOARD_SIZE / 2 + 10 * BOARD_SIZE,
+        fill="#000000",
+        outline="#FFFFFF",
+    )
+    # Пишемо червоним текст "Перемога"
+    c.create_text(
+        SQUARE_SIZE * BOARD_SIZE / 2,
+        SQUARE_SIZE * BOARD_SIZE / 1.9,
+        text="ПОБЕДА!",
+        font="Helvetica {} bold".format(int(10 * BOARD_SIZE)),
+        fill="#DC143C",
+    )
