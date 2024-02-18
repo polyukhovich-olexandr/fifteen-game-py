@@ -131,3 +131,29 @@ def show_victory_plate():
         font="Helvetica {} bold".format(int(10 * BOARD_SIZE)),
         fill="#DC143C",
     )
+
+
+def get_inv_count():
+    """Функція, яка повертає кількість переміщень"""
+    inversions = 0
+    inversion_board = board[:]
+    inversion_board.remove(EMPTY_SQUARE)
+    for i in range(len(inversion_board)):
+        first_item = inversion_board[i]
+        for j in range(i + 1, len(inversion_board)):
+            second_item = inversion_board[j]
+            if first_item > second_item:
+                inversions += 1
+    return inversions
+
+
+# Список з яким ми порівнюватимемо результат. В даному випадку це
+# просто відсортований список, але при бажанні можна придумати щось інше
+correct_board = board[:]
+# перемішуємо блоки
+shuffle(board)
+while not is_solvable():
+    shuffle(board)
+# Малюємо дошку
+draw_board()
+root.mainloop()
